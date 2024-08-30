@@ -6,7 +6,7 @@ namespace Thiiagoms\ISP\Services;
 
 use Thiiagoms\ISP\Contracts\OrderableContract;
 
-class OrderManagerService implements OrderableContract
+abstract class BaseOrderManagerService implements OrderableContract
 {
     /**
      * @var float
@@ -37,16 +37,6 @@ class OrderManagerService implements OrderableContract
     }
 
     /**
-     * @param integer $shipping
-     * @return self
-     */
-    public function shipping(int $shipping): self
-    {
-        $this->total += $shipping;
-        return $this;
-    }
-
-    /**
      * @param float $discount
      * @return self
      */
@@ -56,20 +46,8 @@ class OrderManagerService implements OrderableContract
         return $this;
     }
 
-    public function delivery(string $company): self
-    {
-        $this->deliveryMessage = "Your order will be delivered to {$company}";
-        return $this;
-    }
-
     /**
      * @return object
      */
-    public function process(): object
-    {
-        return (object) [
-            'delivery' => $this->deliveryMessage,
-            'paid' => round($this->total, 2)
-        ];
-    }
+    abstract public function process(): object;
 }

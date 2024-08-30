@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use Thiiagoms\ISP\Services\OrderManagerService;
+namespace Thiiagoms\ISP\Tests\Services;
 
-class OrderManageServiceTest extends TestCase
+use PHPUnit\Framework\TestCase;
+use Thiiagoms\ISP\Services\HardCopiesOrderManagerService;
+
+class HardCopiesOrderManagerServiceTest extends TestCase
 {
-    public function test_order_manager_can_workout_an_order(): void
+    public function testHardCopiesOrderManagerCanWorkoutAnOrder(): void
     {
         $items = [
             ['title' => 'test-book-1', 'price' => 2],
@@ -17,7 +19,9 @@ class OrderManageServiceTest extends TestCase
 
         $deliveryCompany = 'Fedex';
 
-        $orderManager = new OrderManagerService($items);
+        /** @var HardCopiesOrderManagerService $orderManager */
+        $orderManager = new HardCopiesOrderManagerService($items);
+
         $deliveryMessage = "Your order will be delivered to {$deliveryCompany}";
 
         $processOrder = $orderManager
